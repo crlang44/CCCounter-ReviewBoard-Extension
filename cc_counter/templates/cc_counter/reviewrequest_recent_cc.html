@@ -1,67 +1,38 @@
-<style type="text/css">
-#cfcc{
-	top:auto;
-	bottom:0px;
-	right:0px;
-	left:auto;
-	overflow-y:scroll;
-	border: 1px solid black;
-	/*background-color: lightgrey;*/
-	list-style-type: none;
-	list-style-position:inside;
-}
-#compatable-files, #incompatable-files{
-	font-size: 100%;
-	text-decoration: underline;
-	font-weight: bold;
-/*	background-color: black;
-	color:white;*/
-}
-.cfcc-filename{
-	color:#0000FF;
-}
-.cfcc-content{
-	
-	height: 150px;
-}
-.cfcc-new{
-	color:#FF6600;
-}
-.cfcc-changed{
-	color:#880000;
-}
-.cc-data{
-	text-indent: 5px;
-}
-/*.cfcc-constant{
-	color:#A9A9A9;
-}*/
-</style>
-<div id="cfcc" class="accordion">
-	<div id="compatable-files" class="accordion-section-title">Compatable Files</div>
-	<div class="accordion-section-content">
-		{% for fileData in compatable_files %}
-	        <div class="cfcc-file accordion">
-	        <!-- cfcc: compatable files cyclometric complexity -->
-				<u1 class="cfcc-filename accordion-section-title">{{ fileData.filename }}</u1>	        
-		        <div class="cfcc-content accordion-section-content">
-		        	<li class="cfcc-new"><u>new:</u></li>
-		        	{% for function in fileData.ccchanges.new %}
-		        	<li class="cfcc-new cc-data">{{ function.function }} ({{ function.line }}): {{ function.cc }}</li>
-		        	{% endfor %}
-			        <li class="cfcc-changed"><u>changed:</u></li>
-		        	{% for function in fileData.ccchanges.changed %}
-		        	<li class="cfcc-changed cc-data">{{ function.function }} ({{ function.line }}): {{ function.cc }}</li>
-		        	{% endfor %}
-			        <!-- <li class="cfcc-constant">constant: {{ fileData.ccchanges.constant }}</li> -->
-		    	</div>
-	    	</div>
-	    {% endfor %}
-	</div>
-	<div id="incompatable-files" class="accordion-section-title">Incompatable Files</div>
-	<div style="color:#A9A9A9" class="accordion-section-content">
-	    {% for fileData in incompatable_files %}
-	        <div>{{ fileData.filename }}</div>
-	    {% endfor %}
-	</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#main_table').dataTable();
+});
+</script>
+</head>
+<body>
+<div id="cfcc">
+	<table id="main_table">
+		<thead>
+			<tr>
+				<th>filename</th>
+				<th>function</th>
+				<th>line</th>
+				<th>original cc</th>
+				<th>new cc</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for compat_file in compatable_files %}
+			{% for instance in compat_file.ccchanges %}
+			<tr>
+				<td>{{ compat_file.filename }}</td>
+				<td>{{ instance.0 }}</td>
+				<td>{{ instance.1 }}</td>
+				<td>{{ instance.2 }}</td>
+				<td>{{ instance.3 }}</td>
+			</tr>
+			{% endfor %}
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
+</body>
+</html>

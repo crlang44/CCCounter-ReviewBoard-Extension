@@ -1,5 +1,5 @@
-from setuptools import setup
-
+from reviewboard.extensions.packaging import setup
+from setuptools import find_packages
 
 PACKAGE = "cc_counter"
 VERSION = "0.65"
@@ -7,9 +7,9 @@ VERSION = "0.65"
 setup(
     name=PACKAGE,
     version=VERSION,
-    description="counts the cyclomatic complexity of the file",
-    author="Kelvin Fann",
-    packages=["cc_counter"],
+    description="Calculates the cyclomatic complexity of functions",
+    author="Kelvin Fann, Chris Lang",
+    packages=find_packages(),
     entry_points={
         'reviewboard.extensions':
             '%s = cc_counter.extension:CCCounter' % PACKAGE,

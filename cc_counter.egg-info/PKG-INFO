@@ -1,9 +1,9 @@
 Metadata-Version: 1.0
 Name: cc-counter
 Version: 0.65
-Summary: counts the cyclomatic complexity of the file
+Summary: Calculates the cyclomatic complexity of functions
 Home-page: UNKNOWN
-Author: Kelvin Fann
+Author: Kelvin Fann, Chris Lang
 Author-email: UNKNOWN
 License: UNKNOWN
 Description: UNKNOWN

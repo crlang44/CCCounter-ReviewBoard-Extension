@@ -4,13 +4,13 @@ cc_counter/cccomparer.py
 cc_counter/ccreader.py
 cc_counter/extension.py
 cc_counter/hfcca.py
-cc_counter/test.py
 cc_counter/urls.py
 cc_counter/views.py
 cc_counter.egg-info/PKG-INFO
 cc_counter.egg-info/SOURCES.txt
 cc_counter.egg-info/dependency_links.txt
 cc_counter.egg-info/entry_points.txt
+cc_counter.egg-info/not-zip-safe
 cc_counter.egg-info/top_level.txt
 cc_counter/templates/cc_counter/download_ccdata.html
 cc_counter/templates/cc_counter/reviewrequest_cc.html

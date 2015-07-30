@@ -1,5 +1,6 @@
 import os
 import cc_counter.hfcca as hfcca
+import logging
 
 class ccfunc(object):
 	def __init__(self, function, line, cc, parameters=None):
