@@ -12,6 +12,7 @@ from cc_counter.ccreader import analyze_file, get_comparison_data
 from cc_counter.cccomparer import track_diff_ccchanges
 
 import os
+import operator
 
 HOMEFOLDER = os.getenv('HOME')
 
@@ -144,6 +145,7 @@ def reviewrequest_recent_cc(request, review_request_id, revision_offset=1):
     processed_comp_files = []
     unchanged_cc_files = []
 
+    functions_to_order = list()
 
     for compatible_file in compatable_files:
         changed_cc_functions = list()
@@ -154,6 +156,7 @@ def reviewrequest_recent_cc(request, review_request_id, revision_offset=1):
                 if instance[2] == instance[3]:
                     pass
                 else:
+                    functions_to_order.append((compatible_file['filename'],) + instance)
                     changed_cc_functions.append(instance)
                     has_changed = True
 
@@ -166,14 +169,18 @@ def reviewrequest_recent_cc(request, review_request_id, revision_offset=1):
         else:
             unchanged_cc_files += processed_file
 
+    logging.debug("functions_to_order unsorted: %s", functions_to_order)
+    functions_to_order.sort(key=operator.itemgetter(4), reverse=True)
+    logging.debug("functions_to_order sorted: %s", functions_to_order)
+
     template = loader.get_template('cc_counter/reviewrequest_recent_cc.html')
     context = RequestContext(request, {
         'incompatable_files': incompatable_files,
         'compatable_files': processed_comp_files,
         'unchanged_files': unchanged_cc_files,
+        'ordered_functions': functions_to_order,
     })
 
     http_response = HttpResponse(template.render(context))
-    logging.warning("I'm in view!")
 
     return http_response

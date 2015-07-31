@@ -1,36 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript">
-$(document).ready( function () {
-    $('#main_table').dataTable();
-});
-</script>
+	<script type="text/javascript">
+	// $(document).ready( function () {
+	//     $('#main_table').dataTable();
+	// });
+	</script>
+	<style>
+		#cfcc{
+			border-radius: 6px;	
+			border: 1px solid #A0A0A0;
+			box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+			overflow: hidden;
+		}
+
+		#cfcc h1{
+			margin: 0px;
+		}
+
+		.extension-header{
+			width: 100%;
+			background-color: #F0F0F0;
+			padding: 0 0 5px 5px;
+			border-bottom: 1px solid #A0A0A0;
+		}
+
+		.extension-header h1{
+			background-image: linear-gradient(#ffffff, #f0f0f0);
+		}
+
+		#main_table{
+			border-collapse: collapse;
+			width: 100%;
+			text-align: left;
+		}
+
+		#main_table tr{
+			width: 100%;
+			padding-left: 5px;
+		}
+
+		#main_table th{
+			width: 15%;
+			padding: 5px 0px 5px 5px;
+			font-size: 120%;
+		}
+
+		#main_table td{
+			width: 15%;
+			padding: 5px 0px 5px 5px;
+		}
+
+		#main_table thead{
+			background-color: #E4D9CB;
+			padding: 5px 0px;
+			border-bottom: 1px solid #A0A0A0;
+		}
+
+		#main_table .filename{
+			width: 35%;
+		}
+
+		#main_table .function{
+			width: 25%; 
+		}
+
+		.low-cc{
+			background-color: #DFFFD7;
+		}
+
+		.med-cc{
+			background-color: #FDFECC;
+		}
+
+		.high-cc{
+			background-color: #FFE0E5;
+		}
+
+	</style>
 </head>
 <body>
 <div id="cfcc">
+	<div class="extension-header">
+		<h1>Cyclomatic Complexity Analysis</h1>
+		<div>This extension provides the cyclomatic complexity of functions whose changes have resulted in a new cyclomatic complexity.</div>
+	</div>
 	<table id="main_table">
 		<thead>
 			<tr>
-				<th>filename</th>
-				<th>function</th>
-				<th>line</th>
-				<th>original cc</th>
-				<th>new cc</th>
+				<th class="filename">Filename</th>
+				<th class="function">Function</th>
+				<th>Line</th>
+				<th>Original CC</th>
+				<th>New CC</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for compat_file in compatable_files %}
-			{% for instance in compat_file.ccchanges %}
-			<tr>
-				<td>{{ compat_file.filename }}</td>
-				<td>{{ instance.0 }}</td>
-				<td>{{ instance.1 }}</td>
-				<td>{{ instance.2 }}</td>
-				<td>{{ instance.3 }}</td>
-			</tr>
-			{% endfor %}
-			{% endfor %}
+		{% for function in ordered_functions %}
+			{% if function.4 > 30 %}
+				<tr class="high-cc">
+			{% elif function.4 > 15 %}
+				<tr class="med-cc">
+			{% else %}
+				<tr class="low-cc">
+			{% endif %}
+					<td class="filename">{{ function.0 }}</td>
+					<td>{{ function.1 }}</td>
+					<td>{{ function.2 }}</td>
+					{% if function.3 == None %}
+					<td>n/a</td>
+					{% else %}
+					<td>{{ function.3 }}</td>
+					{% endif %}
+					<td>{{ function.4 }}</td>
+				</tr>
+		{% endfor %}
 		</tbody>
 	</table>
 </div>
