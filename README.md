@@ -17,3 +17,5 @@ To install simply use './make' or 'sudo python setup.py install'
 
 
 For more detail refer to this google doc: https://docs.google.com/document/d/1ky_9KCJ4CeFsUeKK_Vxw3pXsYli2_HDLDSGaTGrpVUY/edit?usp=sharing
+
+![Alt text](/cc_counter/static/images/screenshot.png?raw=true "Image of working version.")
