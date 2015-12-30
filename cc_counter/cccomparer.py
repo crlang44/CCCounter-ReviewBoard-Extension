@@ -11,6 +11,8 @@ def track_diff_ccchanges(new_diff_comparison_data, orig_diff_comparison_data):
 
 	diff_ccchanges = []
 	for new_filename in new_diff_comparison_data:
+		if True:
+			pass
 		if new_filename not in orig_file_names:
 			orig_comparison = dict()
 		else:
@@ -24,17 +26,6 @@ def track_diff_ccchanges(new_diff_comparison_data, orig_diff_comparison_data):
 			'ccchanges': ccchanges
 		}]
 	return diff_ccchanges
-
-
-# def track_func_ccchanges(filename_new, filename_orig):
-# 	"""Returns a list of dictionary entries for the net change in cyclomatic complexity
-# 	of all the functions between two different diff cc data files
-# 	"""
-# 	new_analysis = get_comparison_data(filename_new)
-# 	orig_analysis = get_comparison_data(filename_orig)
-# 	logging.debug("new_analysis: %s", new_analysis)
-# 	logging.debug("orig_analysis: %s", orig_analysis)
-# 	return _track_func_ccchanges(new_analysis, orig_analysis)
 
 def _track_func_ccchanges(new_analysis, orig_analysis):
 	"""Returns a list of dictionary entries for the net change in cyclomatic complexity
