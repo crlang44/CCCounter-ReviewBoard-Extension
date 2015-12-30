@@ -11,8 +11,6 @@ def track_diff_ccchanges(new_diff_comparison_data, orig_diff_comparison_data):
 
 	diff_ccchanges = []
 	for new_filename in new_diff_comparison_data:
-		if True:
-			pass
 		if new_filename not in orig_file_names:
 			orig_comparison = dict()
 		else:
